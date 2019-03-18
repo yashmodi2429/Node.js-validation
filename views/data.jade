@@ -1,18 +1,42 @@
 html
    head
-       script(src="/javascripts/jquery-1.8.2.js")
+       script(type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
        script.
-        function activitycheck(_id){
-          alert(_id);
-        }
+        function changeStatus(id) {
+           var status = this.event.target.checked;
+            var postData  = { "_id" : id ,"isactive" : status};
+            $.ajax({
+               type: "POST",
+               url : "/api/update",
+               data: postData,
+               contentType : "application/x-www-form-urlencoded",
+               success : function(responseData, textStatus, jqXHR) {
+                  alert('data updated');
+               },
+               error : function(jqXHR, textStatus, errorThrown) {
+                  console.log(errorThrown);
+               }
+            })
+         }
 body
  table
    each user in users
       tr
          td
           ul 
-             li #{user._id}
-             li #{user.email}
-             li #{user.isactive}
-             li #{user.password}
-             input#activity(type="checkbox" onclick='activitycheck(#{user._id})') 
+            li #{user._id}
+            li #{user.email}
+            li #{user.isactive}
+            li #{user.password}
+            if user.isactive
+               input#activity(
+                  type="checkbox"
+                  onClick='changeStatus("#{user._id}","#{user.isactive}")'
+                  checked
+               )
+            else
+               input#activity(
+                  type="checkbox"
+                  onClick='changeStatus("#{user._id}","#{user.isactive}")'
+               )
+             

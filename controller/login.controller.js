@@ -16,20 +16,21 @@ const login = function (req, res) {
     }
     if (user && user.password === req.body.pwd && user.isactive == true) {
       console.log('User and password is correct');;
-     let query = { _id: { $ne: user._id } }
-     registerModel.find(query, function(err, user){
-       console.log('user', user);
-      
-       res.render('data', {users:user});
-     })
+      let query = { _id: { $ne: user._id } }
+      registerModel.find(query, function (err, user) {
+        console.log('user', user);
 
-    //  app.get('/api/user')
+        res.render('data', { users: user });
+      })
+
+      //  app.get('/api/user')
     } else {
       console.log("Credentials wrong");
       res.json({
         data: "invalid"
       });
-   }});
+    }
+  });
 }
 module.exports = {
   login: login

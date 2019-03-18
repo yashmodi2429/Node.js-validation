@@ -8,21 +8,22 @@ const updateuser = require('../controller/update.controller');
 const bodyParser = require('body-parser');
 console.log("Route");
 
+// to parse the data from post request
 router.use(bodyParser.urlencoded({
-    extended: false
-  }));
-  
-  router.use(bodyParser.json());
-  
-  router.use(function (error, req, res, next) {
-    if (error) {
-      res.send('Invalid Json');
-    }
-  })
-  
-  // routes
-router.post('/update',updateuser.updateuserdata);
-router.post('/register',registerUser.register);
-router.post('/login',loginUser.login);
-// router.get('/user');
+  extended: false
+}));
+
+router.use(bodyParser.json());
+
+router.use(function (error, req, res, next) {
+  if (error) {
+    res.send('Invalid Json');
+  }
+})
+
+// routes
+router.post('/update', updateuser.updateuserdata);
+router.post('/register', registerUser.register);
+router.post('/login', loginUser.login);
+
 module.exports = router;

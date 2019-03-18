@@ -9,28 +9,27 @@ app.set('view engine', 'jade');
 
 
 const start = function () {
-    mongoDb.connect()
-      .then(startServer)
-      .catch(function (err) {
-        console.error(err);
-      })
-  }
-  const startServer = function () {
-    return app.listen(27017, function () {
-      console.info('Server is running on port:');
-    });
-  }
-  
+  mongoDb.connect()
+    .then(startServer)
+    .catch(function (err) {
+      console.error(err);
+    })
+}
+const startServer = function () {
+  return app.listen(27017, function () {
+    console.info('Server is running on port:');
+  });
+}
 
 
-app.use('/api',approute);
 
-app.use('/',express.static(path.join(__dirname,'views')));
+app.use('/api', approute);
+
+app.use('/', express.static(path.join(__dirname, 'views')));
 // app.use(express.static('views'));
 app.listen(3000);
 
 
 module.exports = {
-    start: start
-  };
-  
+  start: start
+};
